@@ -9,8 +9,8 @@ private:
     int* data_;
     size_t size_;
 
-    bool checkIndex(size_t index) const;
-    bool checkValue(int value) const;
+    void validateIndex(size_t index) const;
+    void validateValue(int value) const;
 
 public:
     explicit DynamicArray(size_t size);
