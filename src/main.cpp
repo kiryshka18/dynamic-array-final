@@ -21,6 +21,5 @@ int main() {
     
     arr1.subtract(arr3);
     std::cout << "arr1 после subtract: "; arr1.print();
-// Version 1
     return 0;
 }
