@@ -1,19 +1,16 @@
 #include "DynamicArray.h"
+#include <new>
 
-bool DynamicArray::checkIndex(size_t index) const {
+void DynamicArray::validateIndex(size_t index) const {
     if (index >= size_) {
-        std::cout << "Ошибка: Индекс выходит за пределы массива!" << std::endl;
-        return false;
+        throw std::out_of_range("Ошибка: Индекс выходит за пределы массива!");
     }
-    return true;
 }
 
-bool DynamicArray::checkValue(int value) const {
+void DynamicArray::validateValue(int value) const {
     if (value < -100 || value > 100) {
-        std::cout << "Ошибка: Значение вне допустимого диапазона [-100, 100]!" << std::endl;
-        return false;
+        throw std::invalid_argument("Ошибка: Значение вне допустимого диапазона [-100, 100]!");
     }
-    return true;
 }
 
 DynamicArray::DynamicArray(size_t size) : size_(size) {
@@ -40,17 +37,18 @@ void DynamicArray::print() const {
 }
 
 void DynamicArray::setElement(size_t index, int value) {
-    if (!checkIndex(index) || !checkValue(value)) return;
+    validateIndex(index);
+    validateValue(value);
     data_[index] = value;
 }
 
 int DynamicArray::getElement(size_t index) const {
-    if (!checkIndex(index)) return 0;
+    validateIndex(index);
     return data_[index];
 }
 
 void DynamicArray::pushBack(int value) {
-    if (!checkValue(value)) return;
+    validateValue(value);
     int* newData = new int[size_ + 1];
     for (size_t i = 0; i < size_; ++i) newData[i] = data_[i];
     newData[size_] = value;
